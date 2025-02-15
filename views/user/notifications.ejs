@@ -1,0 +1,10 @@
+<% layout('layouts/main') %>
+
+<div class="container mt-5">
+    <h1 class="text-center">Job Notifications</h1>
+    <ul class="list-group mt-4">
+        <% notifications.forEach(notification => { %>
+            <li class="list-group-item"><%= notification.message %></li>
+        <% }) %>
+    </ul>
+</div>

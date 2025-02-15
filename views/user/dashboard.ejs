@@ -1,0 +1,45 @@
+<% layout('layouts/main') %>
+
+<div class="container mt-5">
+    <h1 class="text-center">User Dashboard</h1>
+
+    <div class="d-flex justify-content-center mt-4">
+        <a href="/user/jobs" class="btn btn-primary me-3">View Jobs</a>
+        <a href="/user/notifications" class="btn btn-success me-3">Notifications</a>
+        <a href="/user/applications" class="btn btn-warning">My Applications</a>
+    </div>
+
+    <div class="mt-5">
+        <h3>Recent Job Listings</h3>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (jobs.length > 0) { %>
+                    <% jobs.forEach(job => { %>
+                        <tr>
+                            <td><%= job.title %></td>
+                            <td><%= job.company %></td>
+                            <td><%= job.role %></td>
+                            <td><%= job.salary %></td>
+                            <td>
+                                <a href="/user/jobs/<%= job._id %>" class="btn btn-info btn-sm">View</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" class="text-center">No jobs available</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>

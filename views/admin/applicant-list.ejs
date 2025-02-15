@@ -1,0 +1,56 @@
+<% layout('layouts/main') %>
+
+<div class="container mt-5">
+    <h1 class="text-center">Applicant List</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Resume</th>
+                <th>Applied At</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (applications.length > 0) { %>
+                <% applications.forEach(applicant => { %>
+                    <tr>
+                        <td><%= applicant.name %></td>
+                        <td><%= applicant.email %></td>
+                        <td><%= applicant.phone %></td> <!-- Display phone number -->
+                        <td>
+                            <a href="/uploads/<%= applicant.resume %>" target="_blank">Download</a>
+                        </td>
+                        <td><%= new Date(applicant.appliedAt).toLocaleDateString() %></td> <!-- Display applied date -->
+                        <td>
+                            <% if (applicant.status === 'Pending') { %>
+                                <span class="badge bg-warning">Pending</span>
+                            <% } else if (applicant.status === 'Accepted') { %>
+                                <span class="badge bg-success">Accepted</span>
+                            <% } else { %>
+                                <span class="badge bg-danger">Rejected</span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <form action="/admin/accept-application/<%= applicant._id %>" method="POST" style="display:inline;">
+                                <input type="hidden" name="jobId" value="<%= applicant.jobId._id %>">
+                                <button class="btn btn-success btn-sm">Accept</button>
+                            </form>
+                            <form action="/admin/reject-application/<%= applicant._id %>" method="POST" style="display:inline;">
+                                <input type="hidden" name="jobId" value="<%= applicant.jobId._id %>">
+                                <button class="btn btn-danger btn-sm">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="7" class="text-center">No applicants found</td>
+                </tr>
+            <% } %>     
+        </tbody>
+    </table>
+</div>

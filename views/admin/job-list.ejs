@@ -1,0 +1,32 @@
+<% layout('layouts/main') %>
+
+<div class="container mt-5">
+    <h1 class="text-center">Manage Jobs</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Skills</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% jobs.forEach(job => { %>
+                <tr>
+                    <td><%= job.title %></td>
+                    <td><%= job.company %></td>
+                    <td><%= job.role %></td>
+                    <td><%= job.skills.join(', ') %></td>
+                    <td><%= job.salary %></td>
+                    <td>
+                        <a href="/admin/jobs/edit/<%= job._id %>" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="/admin/jobs/delete/<%= job._id %>" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>

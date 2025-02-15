@@ -1,0 +1,6 @@
+<h1>My Applications</h1>
+<ul>
+  <% applications.forEach(application => { %>
+    <li><%= application.name %> applied for <%= application.jobId.title %></li>
+  <% }) %>
+</ul>

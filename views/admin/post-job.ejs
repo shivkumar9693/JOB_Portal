@@ -1,0 +1,28 @@
+<% layout('layouts/main') %>
+
+<div class="container mt-5">
+    <h1 class="text-center">Post a New Job</h1>
+    <form action="/admin/post-job" method="POST">
+        <div class="mb-3">
+            <label class="form-label">Job Title</label>
+            <input type="text" class="form-control" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Company Name</label>
+            <input type="text" class="form-control" name="company" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Role</label>
+            <input type="text" class="form-control" name="role" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Skills Required</label>
+            <input type="text" class="form-control" name="skills" placeholder="Comma separated skills" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Salary</label>
+            <input type="number" class="form-control" name="salary" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Job</button>
+    </form>
+</div>
