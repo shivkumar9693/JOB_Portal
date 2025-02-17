@@ -86,4 +86,50 @@ exports.rejectApplication = async (req, res) => {
         res.status(500).send('Error rejecting application');
     }
 };
+exports.getEditJobPage = async (req, res) => {
+    try {
+        const jobId = req.params.jobId;
+        const job = await Job.findById(jobId); // Fetch job from DB
 
+        if (!job) {
+            return res.status(404).send('Job not found');
+        }
+
+        res.render('admin/edit-job', { job });
+    } catch (error) {
+        console.error('Error loading edit job page:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+// Update job logic
+exports.updateJob = async (req, res) => {
+    try {
+        const { title, company, role, skills, salary } = req.body;
+        await Job.findByIdAndUpdate(req.params.jobId, { title, company, role, skills: skills.split(','), salary });
+
+        res.redirect('/admin/jobs');
+    } catch (error) {
+        console.error('Error updating job:', error);
+        res.status(500).send('Error updating job');
+    }
+};
+
+// Controller to handle job deletion
+exports.deleteJob = async (req, res) => {
+    try {
+        const jobId = req.params.jobId;
+        const deletedJob = await Job.findByIdAndDelete(jobId);
+
+        if (!deletedJob) {
+            return res.status(404).send('Job not found');
+        }
+
+        console.log(`Job deleted: ${deletedJob.title}`);
+        res.redirect('/admin/dashboard'); // Redirect to admin dashboard after deletion
+    } catch (error) {
+        console.error('Error deleting job:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};

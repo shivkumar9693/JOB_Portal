@@ -18,7 +18,11 @@ router.get('/applicant-list', adminController.getApplicantList);
 
 // View Applicants for a Job
 router.get('/applicants/:jobId', adminController.getApplicants);
-
+//edit
+router.get('/jobs/edit/:jobId', adminController.getEditJobPage);
+router.post('/jobs/edit/:jobId', adminController.updateJob);
+// Route to delete a job
+router.get('/jobs/delete/:jobId', adminController.deleteJob);
 // Accept or Reject an Application
 router.post('/accept-application/:applicationId', adminController.acceptApplication);
 router.post('/reject-application/:applicationId', adminController.rejectApplication);
