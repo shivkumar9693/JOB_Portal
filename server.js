@@ -22,6 +22,7 @@ app.use(express.json());
 
 // Serve Static Files
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 // Routes
 app.use('/admin', adminRoutes);
