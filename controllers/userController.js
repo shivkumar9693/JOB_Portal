@@ -136,13 +136,13 @@ exports.getApplyJobPage = async (req, res) => {
 exports.getApplications = async (req, res) => {
     try {
         const applications = await Application.find().populate('jobId'); // Populate job details
-
         res.render('user/applications', { applications });
     } catch (error) {
         console.error('Error fetching applications:', error);
         res.status(500).send('Error loading applications.');
     }
 };
+
 
 // Get user dashboard
 exports.getDashboard = async (req, res) => {

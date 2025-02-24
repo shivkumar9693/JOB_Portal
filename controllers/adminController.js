@@ -45,7 +45,8 @@ exports.getJobList = async (req, res) => {
 exports.getApplicants = async (req, res) => {
     try {
         const { jobId } = req.params;
-        const applications = await Application.find({ jobId });
+        const applications = await Application.find({ jobId }).populate('jobId'); // Populate job details
+
         res.render('admin/applicant-list', { applications });
     } catch (error) {
         console.error(error);
@@ -53,16 +54,20 @@ exports.getApplicants = async (req, res) => {
     }
 };
 
-// View All Applicants (All Jobs)
 exports.getApplicantList = async (req, res) => {
     try {
-        const applications = await Application.find().populate('jobId'); // Get job details too
-        res.render('admin/applicant-list', { applications: applications.length > 0 ? applications : [] });
+        const applications = await Application.find().populate('jobId'); // Populate job details
+
+        // Filter out applications where jobId is null (orphaned applications)
+        const validApplications = applications.filter(applicant => applicant.jobId !== null);
+
+        res.render('admin/applicant-list', { applications: validApplications });
     } catch (error) {
         console.error(error);
         res.status(500).send('Error fetching applicants');
     }
 };
+
 
 // Accept an Application
 exports.acceptApplication = async (req, res) => {

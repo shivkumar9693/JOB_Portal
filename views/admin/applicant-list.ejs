@@ -36,13 +36,23 @@
                         </td>
                         <td>
                             <form action="/admin/accept-application/<%= applicant._id %>" method="POST" style="display:inline;">
-                                <input type="hidden" name="jobId" value="<%= applicant.jobId._id %>">
+                                <% if (applicant.jobId) { %>
+                                    <input type="hidden" name="jobId" value="<%= applicant.jobId._id %>">
+                                <% } else { %>
+                                    <input type="hidden" name="jobId" value="">
+                                <% } %>
                                 <button class="btn btn-success btn-sm">Accept</button>
                             </form>
+                            
                             <form action="/admin/reject-application/<%= applicant._id %>" method="POST" style="display:inline;">
-                                <input type="hidden" name="jobId" value="<%= applicant.jobId._id %>">
+                                <% if (applicant.jobId) { %>
+                                    <input type="hidden" name="jobId" value="<%= applicant.jobId._id %>">
+                                <% } else { %>
+                                    <input type="hidden" name="jobId" value="">
+                                <% } %>
                                 <button class="btn btn-danger btn-sm">Reject</button>
                             </form>
+                            
                         </td>
                     </tr>
                 <% }) %>
