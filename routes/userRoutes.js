@@ -1,6 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const UserController = require('../controllers/userController');
+const userAuthController = require('../controllers/userAuthController');
+
+// Render User Signup Page
+router.get('/signup', (req, res) => {
+    res.render('user/signup');
+});
+
+// Handle User Signup
+router.post('/signup', userAuthController.signupUser);
+
+router.get('/userlogin', (req, res) => {
+    res.render('user/userlogin');
+});
+
+router.post('/userlogin', userAuthController.loginUser);
 
 router.get('/dashboard', UserController.getDashboard);
 

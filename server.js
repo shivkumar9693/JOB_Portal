@@ -2,11 +2,15 @@ const express = require('express');
 const path = require('path');
 const connectDB = require('./config/db');
 const engine = require('ejs-mate'); // Import ejs-mate
+require('dotenv').config(); // Load .env variables
+const cookieParser = require('cookie-parser'); 
+
 
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
+app.use(cookieParser()); 
 
 // Connect to Database
 connectDB();
